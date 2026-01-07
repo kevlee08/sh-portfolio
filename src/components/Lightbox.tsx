@@ -16,17 +16,29 @@ const Lightbox: FC = () => {
     !loading ? imagestripRef.current?.querySelectorAll('img')[currentIndex] : undefined;
 
   const openLightbox = useCallback((event: PointerEvent, initialIndex: number) => {
-    const slidesEl = event.target?.closest('.slides');
-    const images = slidesEl.querySelectorAll('.slides-thumbnail img');
-    const set = Array.from(images).map((img: Element) => ({
-      src: img.src,
-      alt: img.alt
-    }));
+    const targetElement = event.target;
+    if (!(targetElement instanceof Element)) {
+      return;
+    }
+    const slidesEl = targetElement.closest('.slides');
+    const images = slidesEl?.querySelectorAll('.slides-thumbnail img');
+    if (!images) {
+      return;
+    }
+    const set = Array.from(images).map((img) => {
+      if (img instanceof HTMLImageElement) {
+        return {
+          src: img.src,
+          alt: img.alt
+        };
+      }
+      return null;
+    }).filter((x) => !!x);
 
-    if (!slidesEl || !set) { return };
+    if (!slidesEl || !set) {
+      return;
+    };
 
-
-    // debugger;
     setShow(true)
     setAllowTransitions(true);
     setCurrentSet(set);
@@ -89,8 +101,6 @@ const Lightbox: FC = () => {
 
   useEffect(() => {
     window.openLightbox = openLightbox;
-
-
   }, []);
 
   return <div

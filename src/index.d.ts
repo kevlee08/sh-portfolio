@@ -1,3 +1,7 @@
+export { };
+
 declare global {
-  interface Window { openLightbox: (event: Event, set: number, initialIndex: number) => void; }
+  interface Window {
+    openLightbox: (event: PointerEvent, initialIndex: number) => void;
+  }
 }

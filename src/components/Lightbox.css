@@ -1,0 +1,153 @@
+.Lightbox {
+  display: flex;
+  position: fixed;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.Lightbox.Lightbox--allow-transitions {
+  transition: opacity 0.3s ease;
+}
+
+.Lightbox.Lightbox--active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.Lightbox__background {
+  background: rgba(0, 0, 0, 0.92);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.Lightbox__close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1rem;
+}
+
+.Lightbox__interior {
+  position: relative;
+  /* z-index: 1; */
+}
+
+.Lightbox__frame {
+  display: block;
+  /* max-width: calc(100vw - 4rem) */
+}
+
+.Lightbox__carousel {
+  display: block;
+  position: relative;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background: black;
+  overflow: hidden;
+}
+
+.Lightbox--allow-transitions .Lightbox__carousel {
+  transition: width 0.3s ease, height 0.3s ease, border 0.3s ease;
+}
+
+.Lightbox__carousel.Lightbox__carousel--loading {
+  width: 20px;
+  height: 20px;
+  border: 6px solid white;
+
+  animation: loadspin 1.2s ease-in-out infinite;
+}
+
+.Lightbox__carousel.Lightbox__carousel--loading>*,
+.Lightbox__carousel.Lightbox__carousel--loading+.Lightbox__controls {
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+.Lightbox__imagestrip {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  align-items: center;
+  justify-content: flex-start;
+  margin: auto;
+  white-space: nowrap;
+  pointer-events: none;
+
+  /* transition: transform 0.5s ease; */
+}
+
+.Lightbox.Lightbox--allow-transitions .Lightbox__imagestrip {
+  transition: transform 0.5s ease;
+}
+
+.Lightbox__imagestrip img {
+  max-width: calc(100vw - 2rem);
+  max-height: calc(100vh - 4rem);
+}
+
+.Lightbox__imagestrip img {
+  vertical-align: top;
+}
+
+.Lightbox__controls {
+  display: flex;
+  flex: 0 0 auto;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  right: 0;
+  background: black;
+  color: white;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 4px;
+}
+
+.Lightbox__caption {
+  flex: 0 1 auto;
+  padding: 0.5rem;
+}
+
+.Lightbox__navigation {
+  flex: 1 0 auto;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.Lightbox__navigation button {
+  width: 40px;
+  height: 34px;
+}
+
+@keyframes loadspin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  5% {
+    transform: rotate(0deg);
+  }
+
+  95% {
+    transform: rotate(720deg);
+  }
+
+  100% {
+    transform: rotate(720deg);
+  }
+
+}

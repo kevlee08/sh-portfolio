@@ -19,5 +19,14 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
+    rules: {
+      'indent': ['error', 2],
+      'eqeqeq': ['error', 'always'],
+      'quotes': ['error', 'single'],
+      'semi': ['error', 'always'],
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
+    },
+    bracketSpacing: true,
   },
 ])

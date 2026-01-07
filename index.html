@@ -1,13 +1,439 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>sh-portfolio26</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio of Kevin Lee</title>
+</head>
+
+<body style="display: none;">
+  <nav class="nav" id="root">
+    <div class="temp-blocker"></div>
+  </nav>
+  <main class=" content">
+    <header class="billboard">
+      <h1>
+        <div>Kevin Lee is a coder and a creative with </div><br>
+        <div>a career dedicated to constructing,</div><br>
+        <div>maintaining and improving the</div><br>
+        <div>human interfaces of technology</div>
+      </h1>
+    </header>
+    <section class="about bumper">
+      <h2>
+        <div>Welcome!</div>
+      </h2>
+      <div class="intro">
+        <p>Thank you for visiting my portfolio. My name is Kevin Lee, and I am a designer and web developer currently
+          based in Seattle, Washington. I have over twenty years of experience in a variety of roles, both technical and
+          creative. These are some of the highlights.
+        </p>
+        <p>This portfolio site itself is a project, built from the ground up using modern web technologies like React,
+          Vite, TypeScript, and WebGL. Take a look at it from a mobile device, the site has been designed with
+          mobile-first in
+          mind and all content is accessible.</p>
+        <p>Feel free to explore the projects below. Each project includes a brief description, my specific role, and any
+          relevant links or media. If you have any questions or would like to get in touch, please don&rsquo;t hesitate
+          to
+          reach out.
+        </p>
+      </div>
+
+      <h2>
+        <div>Come at me!</div>
+      </h2>
+      <div class="contacts">
+        <ul class="links">
+          <li><a href="https://github.com/kevlee08">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/kevatsubhype/">LinkedIn</a></li>
+          <li><a href="https://www.substanceandhype.com/">Photography portfolio</a></li>
+        </ul>
+        <br /><br />
+        Contact me: <a href="mailto:inquiries@subhype.net">inquiries@subhype.net</a>
+      </div>
+    </section>
+    <section class="feature">
+      <img class="feature-image" src="/images/backgrounds/rbes_bg.jpg" alt="Red Bull EmSee 2011 feature image"
+        width="100%" />
+      <h2 class="feature-heading">
+        <div>Red Bull EmSee 2011</div>
+      </h2>
+      <p>EmSee 2011 was a national rap battle royale with 64 freestyle rappers competing head-to-head over the span of
+        nine stops (eight regionals with one final) throughout the United States. For this production, set to air on the
+        G4 cable network (and later on Sony&rsquo;s Crackle streaming service), Red Bull needed a live motion graphics
+        operator that could put up a timer and flash image and word cues on screen, show contestant photos and vignettes
+        during their introductions, and throw some eye candy in-between battles. All needed to be executed in an
+        impeccable fashion to keep the competition consistent through each of the 63 matches occurring throughout the
+        contest. Video, includings footage of the contestants, had to be shot quickly on site at each stop, much of it
+        done during the same day. And it all had to look cool enough for national television.</p>
+      <p>Because of the project requirements, existing VJ applications were not
+        suitable without heavy customization. Instead, a custom Adobe AIR solution running on a Macbook Pro was
+        developed utilizing AIR&rsquo;s Flash animation and video playback capabilities. Image cues and word cues
+        flashed onscreen with a tap of a button, brackets were updated in moments, and all were adjustable on the fly if
+        necessary. Footage, much of it
+        shot during the same day as the production, could be quickly imported and shown. The UI was specially created to
+        not only to quickly execute the various sequences, but was honed and streamlined to minimize and avoid any
+        screwups which might affect the contest. And for the downtime between battles, a set of motion graphic
+        animations were created (much of it using time-lapsed photography), and, if wifi was available at the venue, the
+        console queried Twitter feeds and displayed tweets by event goers and performers live.</p>
+      <p>This was that rare project that combined design, photography, and software
+        development, all handled by a team of one.</p>
+      <div class="breakdown">
+        <dl>
+          <dt>Client</dt>
+          <dd>Red Bull Media House</dd>
+          <dt>Specific role</dt>
+          <dd>Flash/AIR development, motion graphics (using Flash & After Effects), videography and photography</dd>
+        </dl>
+      </div>
+      <div class="slides">
+        <a class="slide" href="/images/slides/rbes_1_full.jpg" target="_top" onclick="openLightbox(event, 0)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/rbes_1_full.jpg');"><img
+              src="/images/slides/rbes_1_full.jpg" width="74" height="55.5"
+              alt="Stage preparation before show in Philadephia" /></div>
+        </a>
+        <a class="slide" href="/images/slides/rbes_2_full.jpg" target="_top" onclick="openLightbox(event, 1)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/rbes_2_full.jpg');"><img
+              src="/images/slides/rbes_2_full.jpg" width="74" height="55.5"
+              alt="Preshow in Houston shows tweets to encourage showgoers to spread the word"></div>
+        </a>
+        <a class="slide" href="/images/slides/rbes_3_full.jpg" target="_top" onclick="openLightbox(event, 2)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/rbes_3_full.jpg');"><img
+              src="/images/slides/rbes_3_full.jpg" width="74" height="55.5"
+              alt="Rakim performs in Philadephia while the screens acknowledge his presence"></div>
+        </a>
+        <a class="slide" href="/images/slides/rbes_4_full.jpg" target="_top" onclick="openLightbox(event, 3)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/rbes_4_full.jpg');"><img
+              src="/images/slides/rbes_4_full.jpg" width="74" height="55.5"
+              alt="Sample head-to-head headshot graphic used at the Los Angeles show"></div>
+        </a>
+    </section>
+
+    <section class="feature">
+      <img class="feature-image" src="/images/backgrounds/imageeditor_bg.jpg" alt="iStock Photo Editor feature image"
+        width="100%" />
+      <h2 class="feature-heading">
+        <div>iStock Image Editor</div>
+      </h2>
+      <p>For iStock, gettyimages&rsquo; value-conscious brand segment, I was a part of a team that created a simple,
+        lightweight image editor that allowed iStock&rsquo;s newsletter-editing, corporate-messaging, and
+        social-media-managing target demographic to do everyday, lightweight image editing without waiting for Photoshop
+        to finish loading. We designed and engineered an image editor that can load an image with a click, resize an
+        image for social media with another, and add text and graphics with a few more. No image purchase necessary to
+        nail down that perfect composition.</p>
+      <p>On the engineering front, we created a nearly-serverless React/Redux single-page app, leveraging modern
+        browser&rsquo;s innate graphical capabilities to edit, composite and generate image files. Besides the
+        few operations that absolutely require server-side storage like authentication, purchase flow and saving
+        compositions,the workload was performed on the client-side, including image resizing and rotation, compositing,
+        and file generation.</p>
+      <div class="breakdown">
+        <dl>
+          <dt>Done while employed at</dt>
+          <dd>gettyimages</dd>
+          <dt>Specific role</dt>
+          <dd>Front-end development in React and Redux</dd>
+        </dl>
+      </div>
+      <div class="slides">
+        <a class="slide" href="/images/slides/imageeditor_1.jpg" target="_top" onclick="openLightbox(event, 0)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/imageeditor_1.jpg');"><img
+              src="/images/slides/imageeditor_1.jpg" width="74" height="55.5"
+              alt="Images can be cropped, resized and rotated to fit the user&rsquo;s needs" /></div>
+        </a>
+        <a class="slide" href="/images/slides/imageeditor_2.jpg" target="_top" onclick="openLightbox(event, 1)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/imageeditor_2.jpg');"><img
+              src="/images/slides/imageeditor_2.jpg" width="74" height="55.5"
+              alt="Insert text easily, with customized backdrops, fonts, and colors"></div>
+        </a>
+        <a class="slide" href="/images/slides/imageeditor_3.jpg" target="_top" onclick="openLightbox(event, 2)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/imageeditor_3.jpg');"><img
+              src="/images/slides/imageeditor_3.jpg" width="74" height="55.5" alt="Users can insert their own images">
+          </div>
+        </a>
+        <a class="slide" href="/images/slides/imageeditor_4.jpg" target="_top" onclick="openLightbox(event, 3)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/imageeditor_4.jpg');"><img
+              src="/images/slides/imageeditor_4.jpg" width="74" height="55.5"
+              alt="Selection of filters allow users to customize the mood of the image, as well as selecting the intensity of the effect">
+          </div>
+        </a>
+        <a class="slide" href="/images/slides/imageeditor_5.jpg" target="_top" onclick="openLightbox(event, 4)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/imageeditor_5.jpg');"><img
+              src="/images/slides/imageeditor_5.jpg" width="74" height="55.5"
+              alt="Users can do an image search within the app without having to exit the editor">
+          </div>
+        </a>
+        <a class="slide" href="/images/slides/imageeditor_6.jpg" target="_top" onclick="openLightbox(event, 5)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/imageeditor_6.jpg');"><img
+              src="/images/slides/imageeditor_6.jpg" width="74" height="55.5"
+              alt="Purchases can be made directly within the app">
+          </div>
+        </a>
+      </div>
+    </section>
+    <section class="feature">
+      <img class="feature-image" src="/images/backgrounds/bellyflip_bg.jpg" alt="Bellyflip feature image"
+        width="100%" />
+      <h2 class="feature-heading">
+        <div>BellyFlip</div>
+      </h2>
+      <p>BellyFlip is a simple iPhone app for expecting mothers to create time-lapse photography of their growing
+        bellies. Designed by two young mothers, the app was created so that new mothers could relive and share the most
+        visible but gradual part of the childbearing experience. Take individual photos once a week, present them in a
+        nicely designed frame, and share via email, or posted directly to Twitter or Facebook. Set an optional weekly
+        timer for reminders to take a picture. With enough pictures, a flip animation movie file could be created and
+        shared. After the baby is delivered, users can add their baby&rsquo;s name, vital statistics and their first
+        picture to create baby announcements.
+      </p>
+      <div class="breakdown">
+        <dl>
+          <dt>Client</dt>
+          <dd>all me, llc</dd>
+        </dl>
+        <dl>
+          <dt>Specific role</dt>
+          <dd>iPhone development (Objective-C and UIKit)</dd>
+        </dl>
+      </div>
+      <div class="slides">
+        <a class="slide" href="/images/slides/bellyflip_1_full.jpg" target="_top" onclick="openLightbox(event, 0)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/bellyflip_1_full.jpg');"><img
+              src="/images/slides/bellyflip_1_full.jpg" width="74" height="55.5"
+              alt="Birth photos can be customized with a selected background design, with over 20 designs available" />
+          </div>
+        </a>
+        <a class="slide" href="/images/slides/bellyflip_2_full.jpg" target="_top" onclick="openLightbox(event, 1)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/bellyflip_2_full.jpg');"><img
+              src="/images/slides/bellyflip_2_full.jpg" width="74" height="55.5"
+              alt="Future mothers take selfies of their growing bellies with an easy to use camera setup">
+          </div>
+        </a>
+        <a class="slide" href="/images/slides/bellyflip_3_full.jpg" target="_top" onclick="openLightbox(event, 2)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/bellyflip_3_full.jpg');"><img
+              src="/images/slides/bellyflip_3_full.jpg" width="74" height="55.5"
+              alt="The collected images, one taken each week plus one for the baby&rsquo;s birth, are converted into a flip-book animation">
+          </div>
+        </a>
+        <a class="slide" href="/images/slides/bellyflip_4_full.jpg" target="_top" onclick="openLightbox(event, 3)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/bellyflip_4_full.jpg');"><img
+              src="/images/slides/bellyflip_4_full.jpg" width="74" height="55.5"
+              alt="Vital data on the birth is easily added">
+          </div>
+        </a>
+    </section>
+    </section>
+    <section class="feature">
+      <img class="feature-image" src="/images/backgrounds/24-7-cheetos_bg.jpg"
+        alt="24/7 Cheetos Eating Channel feature image" width="100%" />
+      <h2 class="feature-heading">
+        <div>24/7 Cheetos Eating Channel</div>
+      </h2>
+
+      <p>One of several widgets and toys on the Cheetos.com site in 2009, the 24/7 Cheetos Eating Channel was a virtual
+        television channel showing nothing but clips of people eating Cheetos. With just enough content to last people
+        until they get sick of the joke, a backend server would schedule a daily playlist of pre-recorded videos,
+        packaged together into &ldquo;shows,&rdquo; and the front-end Flash client would play each file at the time
+        specified&mdash;simulating a broadcast channel. Viewers could also use their webcams to record themselves eating
+        Cheetos; clips that passed moderation would be added and scheduled for broadcast.</p>
+      <div class="breakdown">
+        <dl>
+          <dt>Client</dt>
+          <dd>Frito Lay</dd>
+          <dt>Agency</dt>
+          <dd>Goodby, Stevenson and Partners</dd>
+          <dt>Done while employed at</dt>
+          <dd>Cobra Creative</dd>
+          <dt>Specific role</dt>
+          <dd>Flash development, supplemental design and animation</dd>
+        </dl>
+      </div>
+      <div class="slides">
+        <iframe src="https://player.vimeo.com/video/8723307" width="100%" height="216" frameborder="0"
+          allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+
+        <div class="caption">Cheetos 24-7 Eating Channel reel, courtesy Cobra Creative/Vimeo</div>
+      </div>
+    </section>
+    <section class="feature">
+      <img class="feature-image" src="/images/backgrounds/asics2_bg.jpg" alt="Asics Gel-Kinsei 3 feature image"
+        width="100%" />
+      <h2 class="feature-heading">
+        <div>Asics Gel-Kinsei 3</div>
+      </h2>
+      <p>What the website for the Asics Gel-Kinsei 3 lacks in content it makes up for in presentation. Utilizing
+        pre-rendered 3D graphic animations, we created a 3D shoe which could be stripped down to each component and be
+        rotated. Text on the site was XML-driven and multilingual&mdash;Chinese, Japanese and Korean versions of the
+        site were driven by separate XML files.</p>
+      <p>To keep the site and its content quickly accessible despite its large total load size, a unique loading scheme
+        was developed so that each frame of the rotation animations would load individually depending on which angle and
+        which component was being viewed, which made sure at least one frame of each component animation, at the current
+        angle, was accessible as soon as possible. Flash was pushed to its extreme, using several cutting-edge visual
+        effect technologies including PixelBender shaders and perlin noise generation to create graphics and animations
+        on-the-fly with maximum performance.</p>
+      <div class="breakdown">
+        <dl>
+          <dt>Client</dt>
+          <dd>Asics America</dd>
+          <dt>Done while employed at</dt>
+          <dd>Cobra Creative</dd>
+          <dt>Specific role</dt>
+          <dd>Flash development</dd>
+        </dl>
+      </div>
+      <div class="slides">
+        <a class="slide" href="/images/slides/asics_1_full.jpg" target="_top" onclick="openLightbox(event, 0)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/asics_1_full.jpg');"><img
+              src="/images/slides/asics_1_full.jpg" width="74" height="55.5"
+              alt="As the user turned the shoe, orbs appeared around it, each a clickable target that unveils more information" />
+          </div>
+        </a>
+        <a class="slide" href="/images/slides/asics_2_full.jpg" target="_top" onclick="openLightbox(event, 1)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/asics_2_full.jpg');"><img
+              src="/images/slides/asics_2_full.jpg" width="74" height="55.5"
+              alt="Checking details will also load in a new visuals to show the component of the shoe, isolated">
+          </div>
+        </a>
+        <a class="slide" href="/images/slides/asics_3_full.jpg" target="_top" onclick="openLightbox(event, 2)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/asics_3_full.jpg');"><img
+              src="/images/slides/asics_3_full.jpg" width="74" height="55.5"
+              alt="As the video loads, the progress is shown on the scrubber UI.">
+          </div>
+        </a>
+        <a class="slide" href="/images/slides/asics_4_full.jpg" target="_top" onclick="openLightbox(event, 3)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/asics_4_full.jpg');"><img
+              src="/images/slides/asics_4_full.jpg" width="74" height="55.5"
+              alt="Text animations and shoe visuals transitions using then-cutting edge PixelBender shaders">
+          </div>
+        </a>
+        <a class="slide" href="/images/slides/asics_5_full.jpg" target="_top" onclick="openLightbox(event, 4)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/asics_5_full.jpg');"><img
+              src="/images/slides/asics_5_full.jpg" width="74" height="55.5"
+              alt="The copy on the site was internationalized, with Chinese, Japanese and Korean versions">
+          </div>
+        </a>
+      </div>
+    </section>
+
+
+    <section class="feature">
+      <img class="feature-image" src="/images/backgrounds/officetools_bg2.jpg"
+        alt="Cheetos Office Tools 2009 feature image" width="100%" />
+      <h2 class="feature-heading">
+        <div>Cheetos Office Tools</div>
+      </h2>
+
+      <p>The second toy produced for Cheetos.com 2009, Cheetos Office Tools 2009 is an office suite parody, a document
+        creator in the mold of the warped sensibilities of Chester Cheetah. This little Adobe AIR app, which runs on any
+        PC or Mac after installing Adobe&rsquo;s AIR runtime, walks users through a guided process where users could
+        create
+        and print personalized, ridiculous, and dishonest (for jokes!) business cards, resum&eacute;s, or resignation
+        letters.
+      </p>
+
+      <div class="breakdown">
+        <dl>
+          <dt>Client</dt>
+          <dd>Frito Lay</dd>
+          <dt>Agency</dt>
+          <dd>Goodby, Silverstein and Partners</dd>
+          <dt>Done while employed at</dt>
+          <dd>Cobra Creative</dd>
+          <dt>Specific role</dt>
+          <dd>AIR app (Flash runtime) development</dd>
+        </dl>
+      </div>
+
+      <div class="slides">
+        <a class="slide" href="/images/slides/officetools_1_full.jpg" target="_top" onclick="openLightbox(event, 0)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/officetools_1_full.jpg');"><img
+              src="/images/slides/officetools_1_full.jpg" width="74" height="55.5"
+              alt="The intro screen for the &lsquo;resignation letter&rsquo; generator app" />
+          </div>
+        </a>
+        <a class="slide" href="/images/slides/officetools_2_full.jpg" target="_top" onclick="openLightbox(event, 1)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/officetools_2_full.jpg');"><img
+              src="/images/slides/officetools_2_full.jpg" width="74" height="55.5"
+              alt="For the resignation letter generator, users answer questions presented in the wizard">
+          </div>
+        </a>
+        <a class="slide" href="/images/slides/officetools_3_full.jpg" target="_top" onclick="openLightbox(event, 2)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/officetools_3_full.jpg');"><img
+              src="/images/slides/officetools_3_full.jpg" width="74" height="55.5"
+              alt="Answers from the wizard are inserted into a document, mad-libs style. Users can print the letter after reviewing">
+          </div>
+        </a>
+        <a class=" slide" href="/images/slides/officetools_4_full.jpg" target="_top" onclick="openLightbox(event, 3)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/officetools_4_full.jpg');"><img
+              src="/images/slides/officetools_4_full.jpg" width="74" height="55.5"
+              alt="The fake business card app was presented in a PowerPoint-like interface">
+          </div>
+        </a>
+      </div>
+    </section>
+    <section class="feature">
+      <img class="feature-image" src="/images/backgrounds/bumebox_bg.jpg" alt="Bumebox feature image" width="100%" />
+      <h2 class="feature-heading">
+        <div>Bumebox Website</div>
+      </h2>
+      <p>When I joined social media startup Bumebox in Downtown Palo Alto, we didn&rsquo;t have a website. When it came
+        time to get our web presence ready, we saw the designs for the site created earlier by a hired designer
+        didn&rsquo;t
+        actually finish the design, leaving only a logo, along with a website header and a hero section for a couple
+        fleshed the site out, expanding it to four full static pages, along with a blog design for articles, and staff
+        photos (taken by me) and tweaks to the typography and logo.</p>
+      <p>
+        I don&rsquo;t remember if I wrote "How exactly does Bumebox turn a chatting siesta into a trending fiesta?", but
+        I will gladly take credit for it.</p>
+      <div class="breakdown">
+        <dl>
+          <dt>Done while employed at</dt>
+          <dd>Bumebox, LLC</dd>
+          <dt>Specific role</dt>
+          <dd>Production design of website (based on earlier work), front end implementation</dd>
+        </dl>
+      </div>
+      <div class="slides">
+        <a class="slide" href="/images/slides/bumebox_1_full.jpg" target="_top" onclick="openLightbox(event, 0)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/bumebox_1_full.jpg');"><img
+              src="/images/slides/bumebox_1_full.jpg" width="74" height="55.5" alt="Homepage design" />
+          </div>
+        </a>
+        <a class="slide" href="/images/slides/bumebox_2_full.jpg" target="_top" onclick="openLightbox(event, 1)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/bumebox_2_full.jpg');"><img
+              src="/images/slides/bumebox_2_full.jpg" width="74" height="55.5" alt="Product information page design">
+          </div>
+        </a>
+        <a class="slide" href="/images/slides/bumebox_3_full.jpg" target="_top" onclick="openLightbox(event, 2)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/bumebox_3_full.jpg');"><img
+              src="/images/slides/bumebox_3_full.jpg" width="74" height="55.5" alt="About Us page design">
+          </div>
+        </a>
+        <a class="slide" href="/images/slides/bumebox_4_full.jpg" target="_top" onclick="openLightbox(event, 3)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/bumebox_4_full.jpg');"><img
+              src="/images/slides/bumebox_4_full.jpg" width="74" height="55.5" alt="Company news blog homepage design">
+          </div>
+        </a>
+        <a class="slide" href="/images/slides/bumebox_5_full.jpg" target="_top" onclick="openLightbox(event, 3)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/bumebox_5_full.jpg');"><img
+              src="/images/slides/bumebox_5_full.jpg" width="74" height="55.5" alt="Blog article page design">
+          </div>
+        </a>
+      </div>
+
+    </section>
+    <footer class="footer bumper">
+      <h2>
+        <div>Thank you for visiting!</div>
+      </h2>
+      <p>The source code for this site is available for viewing on GitHub. Open source fonts were used,
+        available via Google Fonts: <a href="https://fonts.google.com/specimen/Barlow">Barlow</a> and <a
+          href="https://fonts.google.com/specimen/Asap">Asap</a>. Images on this site are copyrighted and are owned by
+        their respective owners. The Software of this site is licensed under the MIT License.</p>
+      <p>All feedback, concerns, questions and inquiries are welcome: <a
+          href="mailto:inquiries@subhype.net">inquiries@subhype.net</a></p>
+    </footer>
+  </main>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>

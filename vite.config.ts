@@ -18,6 +18,9 @@ export default defineConfig(({ mode }) => {
     // Example: use an env var to set the dev server port conditionally.
     server: {
       port: env.APP_PORT ? Number(env.APP_PORT) : 3000,
+      watch: {
+        usePolling: true
+      }
     },
   }
 })

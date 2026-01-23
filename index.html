@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio of Kevin Lee</title>
+  <title>Substance and Hype: Portfolio of Kevin Lee</title>
 </head>
 
 <body style="display: none;">
@@ -14,7 +14,7 @@
   <main class=" content">
     <header class="billboard">
       <h1>
-        <div>Kevin Lee is a coder and a creative with </div><br>
+        <div>Kevin Lee is a coder and a creative with</div><br>
         <div>a career dedicated to constructing,</div><br>
         <div>maintaining and improving the</div><br>
         <div>human interfaces of technology</div>
@@ -67,9 +67,10 @@
         impeccable fashion to keep the competition consistent through each of the 63 matches occurring throughout the
         contest. Video, includings footage of the contestants, had to be shot quickly on site at each stop, much of it
         done during the same day. And it all had to look cool enough for national television.</p>
-      <p>Because of the project requirements, existing VJ applications were not
-        suitable without heavy customization. Instead, a custom Adobe AIR solution running on a Macbook Pro was
-        developed utilizing AIR&rsquo;s Flash animation and video playback capabilities. Image cues and word cues
+      <p>Because of time constraints, the specifics of the requirements, and to minimize the mental stack of operating
+        the playback and configuration of the graphics, existing VJ applications were not considered. Instead, a custom
+        Adobe AIR solution running on a Macbook Pro was developed utilizing AIR&rsquo;s Flash animation and video
+        playback capabilities. Image cues and word cues
         flashed onscreen with a tap of a button, brackets were updated in moments, and all were adjustable on the fly if
         necessary. Footage, much of it
         shot during the same day as the production, could be quickly imported and shown. The UI was specially created to
@@ -84,7 +85,7 @@
           <dt>Client</dt>
           <dd>Red Bull Media House</dd>
           <dt>Specific role</dt>
-          <dd>Flash/AIR development, motion graphics (using Flash & After Effects), videography and photography</dd>
+          <dd>Flash/AIR development, motion graphics (Flash & After Effects), videography and photography</dd>
         </dl>
       </div>
       <div class="slides">
@@ -108,6 +109,10 @@
               src="/images/slides/rbes_4_full.jpg" width="74" height="55.5"
               alt="Sample head-to-head headshot graphic used at the Los Angeles show"></div>
         </a>
+        <a class="slide" href="/images/slides/rbes_5_full.jpg" target="_top" onclick="openLightbox(event, 4)">
+          <div class="slides-thumbnail" style="background-image: url('/images/slides/rbes_5_full.jpg');"><img
+              src="/images/slides/rbes_5_full.jpg" width="74" height="55.5" alt="Console UI"></div>
+        </a>
     </section>
 
     <section class="feature">
@@ -127,6 +132,9 @@
         few operations that absolutely require server-side storage like authentication, purchase flow and saving
         compositions,the workload was performed on the client-side, including image resizing and rotation, compositing,
         and file generation.</p>
+      <p>My personal niche on the project was to be the developer on the team most engaged with the design team. I
+        worked with and communicated directly with several designers (working in offices in Seattle and Calgary, Canada)
+        to explain technical limitations of our setup and provide possible solutions. </p>
       <div class="breakdown">
         <dl>
           <dt>Done while employed at</dt>
@@ -262,14 +270,27 @@
       </h2>
       <p>What the website for the Asics Gel-Kinsei 3 lacks in content it makes up for in presentation. Utilizing
         pre-rendered 3D graphic animations, we created a 3D shoe which could be stripped down to each component and be
-        rotated. Text on the site was XML-driven and multilingual&mdash;Chinese, Japanese and Korean versions of the
-        site were driven by separate XML files.</p>
-      <p>To keep the site and its content quickly accessible despite its large total load size, a unique loading scheme
-        was developed so that each frame of the rotation animations would load individually depending on which angle and
-        which component was being viewed, which made sure at least one frame of each component animation, at the current
-        angle, was accessible as soon as possible. Flash was pushed to its extreme, using several cutting-edge visual
-        effect technologies including PixelBender shaders and perlin noise generation to create graphics and animations
-        on-the-fly with maximum performance.</p>
+        rotated. Eight animations were created, one for the shoe in whole and seven more for each component when
+        isolated. The UI presented the shoe something akin to a movie, with the slider moving automatically initially to
+        animate a rotating shoe that would freeze when interacted with. At certain angles, the user can click on "orbs"
+        which exposed explanation text on certain show components and swapped the current animation with that component
+        isolated. Text on the site was XML-driven and multilingual&mdash;Chinese (Simplified and Traditional), Japanese
+        and Korean versions
+        of the site were driven by separate XML files.</p>
+      <p>To keep the site and its content quickly accessible despite having eight total animations to present, a unique
+        lazy-loading scheme was developed so that each frame of the rotation animations would load individually
+        depending on which angle and which component was being viewed, which made sure at least one frame of each
+        available component animation, at the current angle, was accessible as soon as possible. As each frame loads,
+        adjacent frames would load in turn, until the entire animation was complete. This scheme allowed
+        for a more immediate user experience, prioritizing the frames that the user can access immediately.</p>
+      <p>Flash was pushed to its extreme, using several cutting-edge visual
+        effect and image processing technologies. PixelBender shaders and perlin noise generation were used to create
+        graphics and animations on-the-fly with maximum performance. For the shoe animation, we chose to use JPEGs as
+        our file format to minimize file space but we needed to present images with transparent regions. To solve the
+        non-existence of transparent JPEGs, each frame consisted of two files&mdash; a JPEG for the main image, plus
+        second PNG to supply an alpha channel. The two images were combined within the Flash engine into a single bitmap
+        with transparency.
+      </p>
       <div class="breakdown">
         <dl>
           <dt>Client</dt>
@@ -325,9 +346,8 @@
       <p>The second toy produced for Cheetos.com 2009, Cheetos Office Tools 2009 is an office suite parody, a document
         creator in the mold of the warped sensibilities of Chester Cheetah. This little Adobe AIR app, which runs on any
         PC or Mac after installing Adobe&rsquo;s AIR runtime, walks users through a guided process where users could
-        create
-        and print personalized, ridiculous, and dishonest (for jokes!) business cards, resum&eacute;s, or resignation
-        letters.
+        create and print personalized, ridiculous, and dishonest (for jokes!) business cards, resum&eacute;s, or
+        resignation letters.
       </p>
 
       <div class="breakdown">
@@ -381,9 +401,8 @@
         actually finish the design, leaving only a logo, along with a website header and a hero section for a couple
         fleshed the site out, expanding it to four full static pages, along with a blog design for articles, and staff
         photos (taken by me) and tweaks to the typography and logo.</p>
-      <p>
-        I don&rsquo;t remember if I wrote "How exactly does Bumebox turn a chatting siesta into a trending fiesta?", but
-        I will gladly take credit for it.</p>
+      <p>I don&rsquo;t remember if I wrote &ldquo;How exactly does Bumebox turn a chatting siesta into a trending
+        fiesta?&rdquo;, but I will gladly take credit for it.</p>
       <div class="breakdown">
         <dl>
           <dt>Done while employed at</dt>
@@ -432,6 +451,7 @@
         their respective owners. The Software of this site is licensed under the MIT License.</p>
       <p>All feedback, concerns, questions and inquiries are welcome: <a
           href="mailto:inquiries@subhype.net">inquiries@subhype.net</a></p>
+      <p><img src="/images/sh.svg" alt="Substance and Hype logomark" width="64" height="52"></p>
     </footer>
   </main>
   <script type="module" src="/src/main.tsx"></script>

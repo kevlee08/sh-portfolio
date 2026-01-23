@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
-import Background from "./Background";
-import { getBackgroundImages, getScrollPositions } from "./ScrollManager.helpers";
-import ThreeDee from "./ThreeDee";
+import { useEffect, useRef, useState } from 'react';
+import Background from './Background';
+import { getBackgroundImages, getScrollPositions } from './ScrollManager.helpers';
+import ThreeDee from './ThreeDee';
 
 import './ScrollManager.css';
 
@@ -22,38 +22,36 @@ const ScrollManager = () => {
       const viewportHeightWithTrap = viewportHeight - 200;
 
       // control ThreeDee visibility
-      let threeDeeStyles: string = '';
 
-      // positive means it reveals from the top, negative reveals from the bottom, 0 means disabled
+      // positive value means it reveals from the top, negative reveals from the bottom, 0 means disabled
       const mask = (scrollY < viewportHeight) ? viewportHeight - scrollY : (scrollY > scrollHeight) ? scrollHeight - scrollY : 0;
+      let threeDeeStyles: string = '';
 
       if (mask !== 0) {
         threeDeeStyles =
           `clip-path: inset(${mask > 0 ? 0 : viewportHeightWithTrap + mask}px 0px ${mask < 0 ? 0 : viewportHeightWithTrap - mask}px 0px);`;
       } else {
-        threeDeeStyles = "display: none ";
+        threeDeeStyles = 'display: none ';
       }
-      threeDeeRef.current!.style = threeDeeStyles
+      threeDeeRef.current!.style = threeDeeStyles;
 
       // control Background 
       if (scrollY < 300) {
         setActiveBackground(-1);
         return;
       } else if (scrollPositions[0].top > viewportHeight / 2) {
-        setActiveBackground(0)
+        setActiveBackground(0);
         return;
       } else if (scrollPositions[scrollPositions.length - 1].bottom < zoneTop) {
         setActiveBackground(scrollPositions.length - 1);
         return;
       }
-
       const inZone = scrollPositions.findIndex((bounds) =>
         (bounds.top > zoneTop && bounds.top < zoneBottom) ||
         (bounds.bottom > zoneTop && bounds.bottom < zoneBottom) ||
         (bounds.top < zoneTop && bounds.bottom > zoneBottom)
       );
-      console.log(inZone);
-      if (inZone !== activeBackground) {
+      if (inZone !== -1) {
         setActiveBackground(inZone);
       };
     }
@@ -64,7 +62,7 @@ const ScrollManager = () => {
     return () => {
       removeEventListener('scroll', scrollCheck);
       removeEventListener('resize', scrollCheck);
-    }
+    };
   }, []);
 
   return (

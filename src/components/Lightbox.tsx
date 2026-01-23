@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useRef, useState, type FC } from "react";
-import { useWindowSize } from "./helpers";
+import { useCallback, useEffect, useRef, useState, type FC } from 'react';
+import { useWindowSize } from './Lightbox.helpers';
 
+import closeSVG from '../assets/close.svg';
 import './Lightbox.css';
 
 const Lightbox: FC = () => {
@@ -10,10 +11,9 @@ const Lightbox: FC = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   useWindowSize();
+  const [activeImageElement, setActiveImageElement] = useState<HTMLImageElement | undefined>();
 
   const imagestripRef = useRef<HTMLDivElement>(null);
-  const activeImageElement =
-    !loading ? imagestripRef.current?.querySelectorAll('img')[currentIndex] : undefined;
 
   const openLightbox = useCallback((event: PointerEvent, initialIndex: number) => {
     const targetElement = event.target;
@@ -39,13 +39,14 @@ const Lightbox: FC = () => {
       return;
     };
 
-    setShow(true)
+    setShow(true);
     setAllowTransitions(true);
     setCurrentSet(set);
     setCurrentIndex(initialIndex);
+    setActiveImageElement(imagestripRef.current?.querySelectorAll('img')[initialIndex]);
     setLoading(true);
     event.preventDefault();
-  }, [currentSet]);
+  }, []);
 
   const gotoNext = () => {
     if (currentSet == null) {
@@ -54,6 +55,7 @@ const Lightbox: FC = () => {
     const nextIndex = (currentIndex + 1) % currentSet.length;
     setAllowTransitions(true);
     setCurrentIndex(nextIndex);
+    setActiveImageElement(imagestripRef.current?.querySelectorAll('img')[nextIndex]);
   };
   const gotoPrev = () => {
     if (currentSet == null) {
@@ -62,21 +64,23 @@ const Lightbox: FC = () => {
     const prevIndex = (currentIndex - 1 + currentSet.length) % currentSet.length;
     setAllowTransitions(true);
     setCurrentIndex(prevIndex);
+    setActiveImageElement(imagestripRef.current?.querySelectorAll('img')[prevIndex]);
   };
   const closeLightbox = () => {
     if (show) {
       setShow(false);
       setAllowTransitions(true);
     }
-  }
+  };
   const resetLightbox = () => {
     setAllowTransitions(false);
     if (!show) {
       setCurrentSet(null);
       setCurrentIndex(0);
+      setActiveImageElement(imagestripRef.current?.querySelectorAll('img')[0]);
       setLoading(false);
     }
-  }
+  };
   const checkImageLoad = () => {
     if (currentSet == null) {
       return;
@@ -95,13 +99,13 @@ const Lightbox: FC = () => {
     if (allLoaded) {
       setLoading(false);
       setTimeout(() => setLoading(false), 1000);
-
     }
+    setActiveImageElement(imagestripRef.current?.querySelectorAll('img')[currentIndex]);
   };
 
   useEffect(() => {
     window.openLightbox = openLightbox;
-  }, []);
+  }, [openLightbox]);
 
   return <div
     className={'Lightbox' + (show ? ' Lightbox--active' : '') + (allowTransitions ? ' Lightbox--allow-transitions' : '')}
@@ -110,12 +114,12 @@ const Lightbox: FC = () => {
     <div className="Lightbox__background" onClick={() => closeLightbox()}></div>
     <div className="Lightbox__interior">
       <div
-        className={"Lightbox__carousel" + (loading ? ' Lightbox__carousel--loading' : '')}
+        className={'Lightbox__carousel' + (loading ? ' Lightbox__carousel--loading' : '')}
         style={activeImageElement ? { width: activeImageElement.width, height: activeImageElement.height } : {}}>
         <div
           className={'Lightbox__imagestrip'}
           ref={imagestripRef}
-          style={{ transform: `translateY(-50%)` + (activeImageElement ? `translateX(${-activeImageElement?.offsetLeft}px)` : '') }}
+          style={{ transform: 'translateY(-50%)' + (activeImageElement ? `translateX(${-activeImageElement?.offsetLeft}px)` : '') }}
         >
           {show && currentSet != null && currentSet.map((image, index) => {
             return <div key={index}>
@@ -124,7 +128,7 @@ const Lightbox: FC = () => {
                 alt={`Lightbox image ${index + 1}`}
                 onLoad={() => checkImageLoad()}
               />
-            </div>
+            </div>;
           }
           )}
         </div>
@@ -138,7 +142,7 @@ const Lightbox: FC = () => {
       </div>
     </div>
     <button className="Lightbox__close-button">
-      <img src='/images/close.svg' alt='Lightbox background' onClick={() => closeLightbox()} />
+      <img src={closeSVG} alt='Lightbox background' onClick={() => closeLightbox()} />
     </button>
   </div >;
 };

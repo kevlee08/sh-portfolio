@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 // import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RoundedBoxGeometry, TeapotGeometry } from 'three/examples/jsm/Addons.js';
+import { sphericalToCartesianUnit, translateOnSphere } from './ThreeDee.helpers';
 
 import './ThreeDee.css';
 
@@ -34,7 +35,7 @@ const ThreeDee = () => {
       phi: 0,
       spinT: 0,
       spinP: 0,
-    }
+    };
 
     // set up solid objects
     const solids: Solid[] = [{ ...solidTemplate, theta: 0 }, { ...solidTemplate, theta: Math.PI }];
@@ -67,10 +68,21 @@ const ThreeDee = () => {
     let particleGeo: THREE.BufferGeometry | null = null;
     let particles: THREE.Points | null = null;
     let particlePositions: Float32Array | null = null;
+    let particleR: Float32Array | null = null;
     let particleThetas: Float32Array | null = null;
     let particlePhis: Float32Array | null = null;
-    let particleDTheta: Float32Array | null = null;
-    let particleDPhi: Float32Array | null = null;
+    let particleSpeed: Float32Array | null = null;
+    let particleBearing: Float32Array | null = null;
+
+    let linePositions, lineColors;
+    const segments = PARTICLE_COUNT * PARTICLE_COUNT;
+    const effectController = {
+      minDistance: 0.7,
+      limitConnections: true,
+      maxConnections: 10,
+      particleCount: PARTICLE_COUNT
+    };
+    let linesMesh: THREE.LineSegments<THREE.BufferGeometry, THREE.Material, THREE.Object3DEventMap>;
 
 
     const clock = new THREE.Clock();
@@ -84,11 +96,21 @@ const ThreeDee = () => {
       ref.current?.appendChild(renderer.domElement);
 
       scene = new THREE.Scene();
-      //scene.background = new THREE.Color(0xebf5fa)
 
       camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
-      camera.position.set(0, 0, 2);
 
+      const cameraPos = sphericalToCartesianUnit(
+        (Math.random() * 2 - 1) * Math.PI,
+        (Math.random() * .5 - 0.25) * Math.PI,
+        2
+      );
+
+      camera.position.set(
+        cameraPos.x,
+        cameraPos.y,
+        cameraPos.z
+      );
+      camera.lookAt(new THREE.Vector3(0, 0, 0));
       // new OrbitControls(camera, renderer.domElement);
 
 
@@ -126,15 +148,6 @@ const ThreeDee = () => {
       );
       scene.add(backMesh);
 
-      // scene.add(new THREE.Mesh(
-      //   new THREE.IcosahedronGeometry(.8, 12),
-      //   new THREE.MeshPhysicalMaterial({
-      //     color: 0xebf5fa,
-      //     metalness: 0.1,
-      //     roughness: 0.6
-      //   })
-      // ));
-
       group = new THREE.Group();
 
       const isoGeo = new THREE.IcosahedronGeometry(0.14, 8);
@@ -166,12 +179,12 @@ const ThreeDee = () => {
       const geos = [isoGeo, capGeo, torusGeo, coneGeo, cubeGeo].sort(randomSort);
       const getGeo = (index: number) => {
         const g = index % geos.length + 1;
-        if (g == geos.length)
+        if (g === geos.length)
           return [teapotGeo, knotGeo][Math.floor(Math.random() * 2)];
         return geos[g];
       };
 
-      for (var i = 0; i < solids.length; i++) {
+      for (let i = 0; i < solids.length; i++) {
         const mesh = new THREE.Mesh(getGeo(i), pearlMat);
         group.add(mesh);
         objects.push(mesh);
@@ -179,26 +192,30 @@ const ThreeDee = () => {
       scene.add(group);
 
 
-      // --- Particles: 500 points orbiting at radius 2 with random directions ---
-      particlePositions = new Float32Array(PARTICLE_COUNT * 3);
-      particleThetas = new Float32Array(PARTICLE_COUNT);
-      particlePhis = new Float32Array(PARTICLE_COUNT);
-      particleDTheta = new Float32Array(PARTICLE_COUNT);
-      particleDPhi = new Float32Array(PARTICLE_COUNT);
+      // --- Particles: points with random directions ---
+      particlePositions = new Float32Array(PARTICLE_COUNT * 3); // cartesian 
+      particleR = new Float32Array(PARTICLE_COUNT); // spherical
+      particleThetas = new Float32Array(PARTICLE_COUNT); // spherical
+      particlePhis = new Float32Array(PARTICLE_COUNT); // spherical
+
+      particleSpeed = new Float32Array(PARTICLE_COUNT); // dist per frame
+      particleBearing = new Float32Array(PARTICLE_COUNT); // radians
 
       // initialize particles on the sphere of radius 2
       for (let p = 0; p < PARTICLE_COUNT; p++) {
         // uniform distribution on sphere
-        const u = Math.random();
-        const theta = Math.acos(1 - 2 * u); // 0..PI
-        const phi = Math.random() * Math.PI * 2; // 0..2PI
+        const theta = Math.acos(1 - 2 * Math.random()); // 0..PI
+        const r = (Math.random() * 2 - 1) + 4;
+        const phi = (Math.random() * Math.PI) * 2; // 0..2PI
+        particleR[p] = r;
         particleThetas[p] = theta;
         particlePhis[p] = phi;
-        // small random angular velocities (radians/sec)
-        particleDTheta[p] = (Math.random() - 0.5) * 1.2; // -0.6 .. 0.6 rad/s
-        particleDPhi[p] = (Math.random() - 0.5) * 3.0; // -1.5 .. 1.5 rad/s
 
-        const coord = sphericalToCartesian(2, theta, phi);
+        particleSpeed[p] = (Math.random() * 0.1) + 0.1; // 0.05 .. 0.1
+        particleBearing[p] = Math.PI; // (Math.random() * Math.PI * 2) - Math.PI; // -pi .. pi
+
+
+        const coord = sphericalToCartesianUnit(theta, phi, r);
         const idx = p * 3;
         particlePositions[idx] = coord.x;
         particlePositions[idx + 1] = coord.y;
@@ -208,17 +225,36 @@ const ThreeDee = () => {
       particleGeo = new THREE.BufferGeometry();
       particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
       const particleMat = new THREE.PointsMaterial({
-        color: 0xFFFFFF,
-        size: 0.01,
-        sizeAttenuation: true,
+        color: 0x999999,
+        size: 1.5,
+        sizeAttenuation: false,
         transparent: true,
-        opacity: 0.3,
+        opacity: 0.9,
         depthWrite: false,
         blending: THREE.AdditiveBlending
       });
       particles = new THREE.Points(particleGeo, particleMat);
       particles.frustumCulled = false;
       scene.add(particles);
+
+
+
+      const linesGeometry = new THREE.BufferGeometry();
+      linePositions = new Float32Array(segments * 3);
+      lineColors = new Float32Array(segments * 3);
+      linesGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3).setUsage(THREE.DynamicDrawUsage));
+      linesGeometry.setAttribute('color', new THREE.BufferAttribute(lineColors, 3).setUsage(THREE.DynamicDrawUsage));
+      linesGeometry.computeBoundingSphere();
+      linesGeometry.setDrawRange(0, 0);
+
+      const linesMaterial = new THREE.LineBasicMaterial({
+        vertexColors: true,
+        blending: THREE.AdditiveBlending,
+        transparent: true
+      });
+
+      linesMesh = new THREE.LineSegments(linesGeometry, linesMaterial);
+      scene.add(linesMesh);
 
       clock.start();
       window.addEventListener('resize', onWindowResize);
@@ -247,26 +283,86 @@ const ThreeDee = () => {
         const r = solid.min +
           (solid.max - solid.min) * (Math.sin(solid.init + (solid.speed * tr) * Math.PI));
 
-        const coord = sphericalToCartesian(r, solid.theta, solid.phi);
+        const coord = sphericalToCartesianUnit(solid.theta, solid.phi, r);
         objects[i].position.set(coord.x, coord.y, coord.z);
 
-        const rot = sphericalToCartesian(1, solid.spinT, solid.spinP);
+        const rot = sphericalToCartesianUnit(solid.spinT, solid.spinP, 1);
         objects[i].rotation.set(rot.x * trot, rot.y * trot, rot.z * trot);
       }
 
       // update particles
-      if (dt !== 0 && particlePositions && particleThetas && particlePhis && particleDTheta && particleDPhi && particleGeo) {
+      if (dt !== 0 && particlePositions && particleThetas && particlePhis && particleGeo) {
         for (let p = 0; p < PARTICLE_COUNT; p++) {
-          particleThetas[p] += particleDTheta[p] * dt;
-          particlePhis[p] += particleDPhi[p] * dt;
-          const coord = sphericalToCartesian(2, particleThetas[p], particlePhis[p]);
+
+          const sph = translateOnSphere(
+            particleR?.[p] ?? 0,
+            particleThetas[p],
+            particlePhis[p],
+            particleBearing?.[p] ?? 0,
+            (particleSpeed?.[p] ?? 0) * tr
+          );
+
+          const coord = sphericalToCartesianUnit(sph.theta, sph.phi, sph.r);
           const idx = p * 3;
           particlePositions[idx] = coord.x;
           particlePositions[idx + 1] = coord.y;
           particlePositions[idx + 2] = coord.z;
+
+
+
         }
         (particleGeo.attributes.position as THREE.BufferAttribute).needsUpdate = true;
       }
+
+      // update lines 
+      let vertexpos = 0;
+      let colorpos = 0;
+      let numConnected = 0;
+      const particleConnections = new Float32Array(PARTICLE_COUNT * 3);
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        for (let j = 0; j < PARTICLE_COUNT; j++) {
+
+          const idx0 = i * 3;
+          const idx1 = j * 3;
+          if (effectController.limitConnections && particleConnections[j] >= effectController.maxConnections)
+            continue;
+
+          const dx = particlePositions ? particlePositions[idx0] - particlePositions[idx1] : 0;
+          const dy = particlePositions ? particlePositions[idx0 + 1] - particlePositions[idx1 + 1] : 0;
+          const dz = particlePositions ? particlePositions[idx0 + 2] - particlePositions[idx1 + 2] : 0;
+          const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+          if (dist > 0 && dist < effectController.minDistance) {
+
+            particleConnections[i]++;
+            particleConnections[j]++;
+
+            const alpha = (1.0 - dist / effectController.minDistance) * 0.012;
+
+            linePositions[vertexpos++] = particlePositions?.[idx0];
+            linePositions[vertexpos++] = particlePositions?.[idx0 + 1];
+            linePositions[vertexpos++] = particlePositions?.[idx0 + 2];
+
+            linePositions[vertexpos++] = particlePositions?.[idx1];
+            linePositions[vertexpos++] = particlePositions?.[idx1 + 1];
+            linePositions[vertexpos++] = particlePositions?.[idx1 + 2];
+
+            lineColors[colorpos++] = alpha;
+            lineColors[colorpos++] = alpha;
+            lineColors[colorpos++] = alpha;
+
+            lineColors[colorpos++] = alpha;
+            lineColors[colorpos++] = alpha;
+            lineColors[colorpos++] = alpha;
+
+            numConnected++;
+
+          }
+        }
+      }
+      linesMesh.geometry.setDrawRange(0, numConnected * 2);
+      linesMesh.geometry.attributes.position.needsUpdate = true;
+      linesMesh.geometry.attributes.color.needsUpdate = true;
 
       group.rotation.y += 0.004;
       renderer.render(scene, camera);
@@ -274,8 +370,8 @@ const ThreeDee = () => {
     }
 
     function gradTexture(color: [number[], string[]]) {
-      const c = document.createElement("canvas");
-      const ct = c.getContext("2d");
+      const c = document.createElement('canvas');
+      const ct = c.getContext('2d');
       if (ct == null) return null;
       const size = 1024;
       c.width = 16; c.height = size;
@@ -289,14 +385,6 @@ const ThreeDee = () => {
       return texture;
     }
 
-    function sphericalToCartesian(r: number, theta: number, phi: number) {
-      const sinT = Math.sin(theta);
-      return {
-        x: r * sinT * Math.cos(phi),
-        y: r * sinT * Math.sin(phi),
-        z: r * Math.cos(theta)
-      };
-    }
 
     function randomSort() {
       return Math.floor(Math.random() * 3) - 1;
@@ -304,5 +392,5 @@ const ThreeDee = () => {
 
   }, []);
   return <div className="ThreeDee" style={{}} ref={ref}></div>;
-}
+};
 export default ThreeDee;

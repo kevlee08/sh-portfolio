@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 
-import './Background.css'
+import './Background.css';
 
 interface BackgroundProps {
   srcs: string[];
@@ -9,6 +9,7 @@ interface BackgroundProps {
 const Background: React.FC<BackgroundProps> = ({ srcs, active }) => {
   const [stack, setStack] = useState<number[]>([]);
   const ref = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const scrollCheck = () => {
       const scrollY = window.scrollY || window.pageYOffset;
@@ -32,30 +33,32 @@ const Background: React.FC<BackgroundProps> = ({ srcs, active }) => {
     return () => {
       window.removeEventListener('scroll', scrollCheck);
       window.removeEventListener('resize', scrollCheck);
-    }
+    };
   }, []);
 
-  useEffect(() => {
-    if (active == -1) {
+  // adjust stack of backgrounds
+  if (active === -1) {
+    if (stack?.length) {
       setStack([]);
-    } else if (active !== -1) {
-      setStack(prev => {
-        const newStack = [active, ...prev.filter((i) => i !== active)];
-        return newStack;
-      })
     }
-  }, [active]);
+  } else if (stack[0] !== active) {
+    setStack(prev => {
+      const newStack = [active, ...prev.filter((i) => i !== active)];
+      return newStack;
+    });
+  }
+
   return (
     <div className="Background__container" ref={ref}> {
-      stack.map((bgIndex, i) => {
+      active !== -1 && stack.map((bgIndex, i) => {
         if (i === 0) {
           return <div key={bgIndex} className="Background" style={{ backgroundImage: `url(${srcs[bgIndex]})` }} />;
         } else {
           return <div key={bgIndex} className="Background Background--fade-out" style={{ backgroundImage: `url(${srcs[bgIndex]})` }} onAnimationEnd={() => {
             setStack(prev => prev.filter((i) => bgIndex !== i));
-          }} />
+          }} />;
         }
       })
     }</div>);
-}
+};
 export default Background;

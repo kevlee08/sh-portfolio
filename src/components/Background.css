@@ -5,7 +5,7 @@
   left: 0;
   width: 100vw;
   height: 110vh;
-  pointer-events: none;
+  /* pointer-events: none; */
   overflow: hidden;
 }
 
